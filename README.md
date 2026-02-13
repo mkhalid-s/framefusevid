@@ -1,5 +1,11 @@
 # FrameFuseVid
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/Version-0.1.0-blue.svg)](https://github.com/YOUR-USERNAME/framefusevid/releases)
+[![Node.js](https://img.shields.io/badge/Node.js-v16+-green.svg)](https://nodejs.org/)
+[![Electron](https://img.shields.io/badge/Electron-28+-purple.svg)](https://www.electronjs.org/)
+[![React](https://img.shields.io/badge/React-18+-61DAFB.svg)](https://react.dev/)
+
 A desktop application to combine Zoom cloud recording files (screen share, speaker view, gallery view, audio, and transcripts) into a single video with customizable layouts.
 
 ## Features
