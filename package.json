@@ -2,13 +2,37 @@
   "name": "framefusevid",
   "version": "0.1.0",
   "description": "Combine Zoom cloud recording files into a single video with customizable layouts",
-  "author": "FrameFuseVid",
+  "author": "FrameFuseVid Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR-USERNAME/framefusevid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR-USERNAME/framefusevid/issues"
+  },
+  "homepage": "https://github.com/YOUR-USERNAME/framefusevid#readme",
+  "keywords": [
+    "zoom",
+    "video",
+    "recording",
+    "merge",
+    "ffmpeg",
+    "electron",
+    "desktop",
+    "privacy",
+    "local-processing",
+    "picture-in-picture",
+    "video-editing",
+    "zoom-recording",
+    "cross-platform"
+  ],
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "concurrently \"npm run dev:react\" \"wait-on http://localhost:3000 && electron .\"",
-    "dev:react": "react-scripts start",
-    "build": "react-scripts build && electron-builder",
+    "dev": "concurrently \"npm run dev:vite\" \"wait-on http://localhost:3000 && electron .\"",
+    "dev:vite": "vite",
+    "build": "vite build && electron-builder",
     "build:win": "npm run build -- --win",
     "build:mac": "npm run build -- --mac",
     "build:linux": "npm run build -- --linux"
@@ -16,33 +40,61 @@
   "dependencies": {
     "electron-is-dev": "^2.0.0",
     "electron-store": "^8.1.0",
-    "fluent-ffmpeg": "^2.1.2",
     "ffmpeg-static": "^5.2.0",
-    "ffprobe-static": "^3.1.0"
+    "ffprobe-static": "^3.1.0",
+    "fluent-ffmpeg": "^2.1.2"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.2",
+    "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
-    "electron": "^28.0.0",
+    "electron": "^40.0.0",
     "electron-builder": "^24.9.1",
+    "electron-vite": "^5.0.0",
+    "lucide-react": "^0.263.1",
+    "postcss": "^8.4.32",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
     "tailwindcss": "^3.4.0",
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.32",
-    "lucide-react": "^0.263.1",
+    "vite": "^7.3.1",
     "wait-on": "^7.2.0"
   },
   "build": {
     "appId": "com.framefusevid.app",
     "productName": "FrameFuseVid",
     "extends": null,
-    "directories": { "output": "dist" },
-    "files": ["build/**/*", "src/main/**/*", "node_modules/**/*"],
-    "mac": { "category": "public.app-category.video", "target": ["dmg"] },
-    "win": { "target": ["nsis"] },
-    "linux": { "target": ["AppImage"], "category": "Video" }
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "src/main/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.video",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Video"
+    }
   },
-  "homepage": "./",
-  "browserslist": { "production": ["last 1 electron version"], "development": ["last 1 electron version"] }
+  "browserslist": {
+    "production": [
+      "last 1 electron version"
+    ],
+    "development": [
+      "last 1 electron version"
+    ]
+  }
 }
