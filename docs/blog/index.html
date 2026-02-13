@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - FrameFuseVid</title>
+    <meta name="description" content="FrameFuseVid blog: tutorials, announcements, architecture deep-dives, and contribution guides.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container">
+        <nav>
+            <a href="../index.html" class="logo">
+                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                    <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="10" cy="10" r="2" fill="#818cf8"/>
+                    <circle cx="18" cy="18" r="2" fill="#06b6d4"/>
+                </svg>
+                FrameFuseVid
+            </a>
+            <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../docs.html">Docs</a>
+                <a href="index.html" class="active">Blog</a>
+                <a href="https://github.com/mkhalid-s/framefusevid" target="_blank">GitHub</a>
+                <a href="https://github.com/mkhalid-s/framefusevid/releases" class="nav-cta">Download</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<div class="article-header" style="padding-bottom: 2rem;">
+    <div class="container">
+        <span class="section-label">Blog</span>
+        <h1>Updates, Tutorials &amp; Deep Dives</h1>
+        <p class="text-secondary" style="max-width: 600px; font-size: 1.1rem; line-height: 1.8;">Announcements, architecture insights, and guides for getting the most out of FrameFuseVid.</p>
+    </div>
+</div>
+
+<!-- ===== BLOG GRID ===== -->
+<section style="padding-top: 2rem;">
+    <div class="container">
+        <div class="blog-grid">
+
+            <!-- Post 1: Introducing FrameFuseVid -->
+            <a href="introducing-framefusevid.html" class="blog-card" style="text-decoration: none;">
+                <div class="blog-card-image" style="background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <rect x="8" y="14" width="42" height="32" rx="6" stroke="white" stroke-width="3" opacity="0.9"/>
+                        <rect x="30" y="34" width="42" height="32" rx="6" stroke="white" stroke-width="3" opacity="0.7"/>
+                        <circle cx="29" cy="30" r="5" fill="white" opacity="0.8"/>
+                        <circle cx="51" cy="50" r="5" fill="white" opacity="0.6"/>
+                    </svg>
+                </div>
+                <div class="blog-card-body">
+                    <span class="blog-tag">Announcement</span>
+                    <h3><span style="color: var(--text);">Introducing FrameFuseVid: The Solution to Zoom Recording Mayhem</span></h3>
+                    <p>We are excited to announce the open-source release of FrameFuseVid &mdash; a privacy-first desktop app that combines multiple Zoom recordings into one polished video.</p>
+                    <div class="blog-date">February 16, 2026</div>
+                </div>
+            </a>
+
+            <!-- Post 2: Architecture Deep Dive -->
+            <a href="architecture-deep-dive.html" class="blog-card" style="text-decoration: none;">
+                <div class="blog-card-image" style="background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <rect x="14" y="10" width="52" height="20" rx="4" stroke="white" stroke-width="2.5" opacity="0.9"/>
+                        <rect x="14" y="40" width="24" height="30" rx="4" stroke="white" stroke-width="2.5" opacity="0.7"/>
+                        <rect x="42" y="40" width="24" height="30" rx="4" stroke="white" stroke-width="2.5" opacity="0.7"/>
+                        <line x1="30" y1="30" x2="30" y2="40" stroke="white" stroke-width="2" opacity="0.6"/>
+                        <line x1="50" y1="30" x2="50" y2="40" stroke="white" stroke-width="2" opacity="0.6"/>
+                    </svg>
+                </div>
+                <div class="blog-card-body">
+                    <span class="blog-tag">Engineering</span>
+                    <h3><span style="color: var(--text);">Architecture Deep Dive: How FFmpeg Powers FrameFuseVid</span></h3>
+                    <p>A look under the hood at the Electron + React + FFmpeg stack, the IPC bridge design, and how we generate filter graphs for each layout.</p>
+                    <div class="blog-date">February 16, 2026</div>
+                </div>
+            </a>
+
+            <!-- Post 3: How to Contribute -->
+            <a href="how-to-contribute.html" class="blog-card" style="text-decoration: none;">
+                <div class="blog-card-image" style="background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <circle cx="30" cy="35" r="10" stroke="white" stroke-width="2.5" opacity="0.9"/>
+                        <circle cx="50" cy="35" r="10" stroke="white" stroke-width="2.5" opacity="0.7"/>
+                        <circle cx="40" cy="52" r="10" stroke="white" stroke-width="2.5" opacity="0.8"/>
+                        <path d="M32 26 L36 22 L40 26" stroke="white" stroke-width="2" opacity="0.5"/>
+                    </svg>
+                </div>
+                <div class="blog-card-body">
+                    <span class="blog-tag">Community</span>
+                    <h3><span style="color: var(--text);">How to Contribute to FrameFuseVid</span></h3>
+                    <p>Whether you are a developer, designer, or user &mdash; here is how you can help improve FrameFuseVid for everyone. Setup guide, PR workflow, and ideas.</p>
+                    <div class="blog-date">February 16, 2026</div>
+                </div>
+            </a>
+
+            <!-- Post 4: Privacy First -->
+            <a href="why-privacy-matters.html" class="blog-card" style="text-decoration: none;">
+                <div class="blog-card-image" style="background: linear-gradient(135deg, #10b981 0%, #f59e0b 100%);">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <path d="M40 14 L58 22 V42 C58 54 40 66 40 66 C40 66 22 54 22 42 V22 L40 14Z" stroke="white" stroke-width="2.5" opacity="0.9" fill="none"/>
+                        <path d="M32 38 L38 44 L50 32" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+                    </svg>
+                </div>
+                <div class="blog-card-body">
+                    <span class="blog-tag">Privacy</span>
+                    <h3><span style="color: var(--text);">Why Privacy Matters for Video Processing Tools</span></h3>
+                    <p>Cloud-based video editors require uploading sensitive recordings. We explain why local processing is the right default for enterprise video workflows.</p>
+                    <div class="blog-date">February 16, 2026</div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="../index.html" class="logo" style="margin-bottom: 0.5rem;">
+                    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                        <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    </svg>
+                    FrameFuseVid
+                </a>
+                <p>Open-source desktop app for merging Zoom cloud recordings into professional videos.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Product</h3>
+                <ul>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#layouts">Layouts</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/releases">Downloads</a></li>
+                    <li><a href="../docs.html">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="../docs.html#quickstart">Quick Start</a></li>
+                    <li><a href="../docs.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid">GitHub</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/issues">Issues</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/discussions">Discussions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 FrameFuseVid Contributors. Released under the <a href="https://github.com/mkhalid-s/framefusevid/blob/main/LICENSE">MIT License</a>.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

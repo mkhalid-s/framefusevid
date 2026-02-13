@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducing FrameFuseVid - FrameFuseVid Blog</title>
+    <meta name="description" content="Announcing the open-source release of FrameFuseVid: a privacy-first desktop app to merge Zoom cloud recordings into professional videos.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container">
+        <nav>
+            <a href="../index.html" class="logo">
+                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                    <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="10" cy="10" r="2" fill="#818cf8"/>
+                    <circle cx="18" cy="18" r="2" fill="#06b6d4"/>
+                </svg>
+                FrameFuseVid
+            </a>
+            <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../docs.html">Docs</a>
+                <a href="index.html" class="active">Blog</a>
+                <a href="https://github.com/mkhalid-s/framefusevid" target="_blank">GitHub</a>
+                <a href="https://github.com/mkhalid-s/framefusevid/releases" class="nav-cta">Download</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== ARTICLE HEADER ===== -->
+<div class="article-header">
+    <div class="container-narrow">
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Blog
+        </a>
+        <span class="blog-tag">Announcement</span>
+        <h1>Introducing FrameFuseVid: The Solution to Zoom Recording Mayhem</h1>
+        <div class="article-meta">
+            <span>February 16, 2026</span>
+            <span>&middot;</span>
+            <span>5 min read</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ARTICLE BODY ===== -->
+<div class="article-body">
+    <div class="container-narrow">
+
+        <p>We are excited to announce the open-source release of <strong>FrameFuseVid</strong>, a desktop application designed to solve one of the most persistent pain points of remote work: managing multiple Zoom cloud recording files.</p>
+
+        <h2>The Problem</h2>
+
+        <p>If you have ever recorded a Zoom meeting with cloud recording enabled, you know the drill. You end up with a folder full of separate files:</p>
+
+        <ul>
+            <li>An MP4 of the <strong>active speaker</strong></li>
+            <li>Another MP4 of the <strong>gallery view</strong></li>
+            <li>A separate MP4 for the <strong>screen share</strong></li>
+            <li>An audio file (<strong>M4A</strong>)</li>
+            <li>Transcript files (<strong>VTT/SRT</strong>)</li>
+        </ul>
+
+        <p>Combining these into a single watchable video traditionally means downloading everything, importing into a complex video editor like Premiere or Final Cut, syncing timelines, and manually arranging layouts. Most people just skip this step entirely.</p>
+
+        <blockquote>
+            <p>"There's no capability to combine two recordings on Zoom. In general, this would require downloading the two files and using some other video editor to combine them."<br>&mdash; Zoom Community Forums</p>
+        </blockquote>
+
+        <p>This is not a niche problem. With <strong>300 million daily active Zoom users</strong> and 59% of employees spending 5+ hours per week in video meetings, the volume of fragmented recordings is enormous. Industry analysts estimate enterprises face a <strong>$42 billion training video crisis</strong> due to unusable recording libraries.</p>
+
+        <h2>Our Solution</h2>
+
+        <p>FrameFuseVid automates the entire workflow into four simple steps:</p>
+
+        <!-- Workflow Diagram -->
+        <div class="architecture-diagram" style="margin: 2rem 0;">
+            <svg viewBox="0 0 700 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%;">
+                <!-- Step 1 -->
+                <rect x="10" y="10" width="150" height="90" rx="10" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
+                <circle cx="85" cy="36" r="14" fill="rgba(99,102,241,0.15)"/>
+                <text x="85" y="40" fill="#818cf8" font-family="Inter, sans-serif" font-size="12" font-weight="800" text-anchor="middle">1</text>
+                <text x="85" y="65" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Select Files</text>
+                <text x="85" y="82" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">Auto-detect types</text>
+
+                <path d="M165 55 L185 55" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowG)"/>
+
+                <!-- Step 2 -->
+                <rect x="190" y="10" width="150" height="90" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5"/>
+                <circle cx="265" cy="36" r="14" fill="rgba(6,182,212,0.15)"/>
+                <text x="265" y="40" fill="#06b6d4" font-family="Inter, sans-serif" font-size="12" font-weight="800" text-anchor="middle">2</text>
+                <text x="265" y="65" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Choose Layout</text>
+                <text x="265" y="82" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">PIP, Side-by-Side, ...</text>
+
+                <path d="M345 55 L365 55" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowG)"/>
+
+                <!-- Step 3 -->
+                <rect x="370" y="10" width="150" height="90" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+                <circle cx="445" cy="36" r="14" fill="rgba(16,185,129,0.15)"/>
+                <text x="445" y="40" fill="#10b981" font-family="Inter, sans-serif" font-size="12" font-weight="800" text-anchor="middle">3</text>
+                <text x="445" y="65" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Process</text>
+                <text x="445" y="82" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">FFmpeg encoding</text>
+
+                <path d="M525 55 L545 55" stroke="#475569" stroke-width="1.5" marker-end="url(#arrowG)"/>
+
+                <!-- Step 4 -->
+                <rect x="550" y="10" width="140" height="90" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+                <circle cx="620" cy="36" r="14" fill="rgba(245,158,11,0.15)"/>
+                <text x="620" y="40" fill="#f59e0b" font-family="Inter, sans-serif" font-size="12" font-weight="800" text-anchor="middle">4</text>
+                <text x="620" y="65" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Export</text>
+                <text x="620" y="82" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">Save &amp; share</text>
+
+                <defs>
+                    <marker id="arrowG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <path d="M0,0 L8,4 L0,8" fill="#475569"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <ol>
+            <li><strong>Detects your files automatically</strong> &mdash; point it to your Zoom recording folder and it identifies which file is which based on naming patterns.</li>
+            <li><strong>Lets you choose a layout</strong> &mdash; Picture-in-Picture, Side-by-Side, Sequential, or Audio Merge. See a live preview before committing.</li>
+            <li><strong>Processes locally</strong> &mdash; your recordings never leave your computer. FFmpeg runs locally and renders the final video.</li>
+            <li><strong>Exports a single file</strong> &mdash; MP4, MKV, or MOV. Share it on your LMS, cloud storage, or intranet.</li>
+        </ol>
+
+        <h2>Key Features</h2>
+
+        <ul>
+            <li><strong>Interactive PIP</strong> &mdash; drag the overlay to any position, adjust size from 10% to 50%</li>
+            <li><strong>Subtitle Burning</strong> &mdash; import VTT/SRT transcripts and hard-code them into the video</li>
+            <li><strong>Quality Presets</strong> &mdash; Fast (quick encode), Medium (balanced), Slow (best quality)</li>
+            <li><strong>Real-time Progress</strong> &mdash; percentage, timecode, and FPS during encoding</li>
+            <li><strong>Cross-platform</strong> &mdash; macOS, Windows, and Linux builds via electron-builder</li>
+        </ul>
+
+        <h2>Who Is This For?</h2>
+
+        <p>FrameFuseVid is built for anyone who records Zoom meetings and needs a better way to combine and share them:</p>
+
+        <ul>
+            <li><strong>L&amp;D teams</strong> creating training content from recorded sessions</li>
+            <li><strong>Sales teams</strong> building demo libraries with presenter + screen share</li>
+            <li><strong>Executives</strong> producing polished town hall recordings</li>
+            <li><strong>Compliance teams</strong> archiving recordings with embedded transcripts</li>
+            <li><strong>Educators</strong> publishing lecture recordings to LMS platforms</li>
+        </ul>
+
+        <h2>Why Open Source?</h2>
+
+        <p>We believe tools that handle sensitive corporate recordings should be transparent and inspectable. By releasing FrameFuseVid under the MIT license, we enable:</p>
+
+        <ul>
+            <li><strong>Trust</strong> &mdash; anyone can read the code and verify that files stay local</li>
+            <li><strong>Contribution</strong> &mdash; the community can add features, fix bugs, and support new platforms</li>
+            <li><strong>Customization</strong> &mdash; enterprises can fork and adapt it to their specific workflows</li>
+        </ul>
+
+        <h2>Get Started</h2>
+
+        <p>Download the latest release from <a href="https://github.com/mkhalid-s/framefusevid/releases">GitHub Releases</a>, or build from source:</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="lang-tag">bash</span>
+                <span>Terminal</span>
+            </div>
+            <pre><code>git clone https://github.com/mkhalid-s/framefusevid.git
+cd framefusevid
+npm install
+npm run dev</code></pre>
+        </div>
+
+        <p>We are looking forward to your feedback. Open an <a href="https://github.com/mkhalid-s/framefusevid/issues">issue</a>, start a <a href="https://github.com/mkhalid-s/framefusevid/discussions">discussion</a>, or submit a pull request.</p>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <a href="https://github.com/mkhalid-s/framefusevid" class="btn btn-primary">View on GitHub</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="../index.html" class="logo" style="margin-bottom: 0.5rem;">
+                    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                        <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    </svg>
+                    FrameFuseVid
+                </a>
+                <p>Open-source desktop app for merging Zoom cloud recordings into professional videos.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Product</h3>
+                <ul>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/releases">Downloads</a></li>
+                    <li><a href="../docs.html">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="../docs.html#quickstart">Quick Start</a></li>
+                    <li><a href="../docs.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid">GitHub</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/issues">Issues</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/discussions">Discussions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 FrameFuseVid Contributors. Released under the <a href="https://github.com/mkhalid-s/framefusevid/blob/main/LICENSE">MIT License</a>.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

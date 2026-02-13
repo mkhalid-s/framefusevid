@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Contribute - FrameFuseVid Blog</title>
+    <meta name="description" content="A guide to contributing to FrameFuseVid: development setup, PR workflow, code style, and ways to get involved.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container">
+        <nav>
+            <a href="../index.html" class="logo">
+                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                    <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="10" cy="10" r="2" fill="#818cf8"/>
+                    <circle cx="18" cy="18" r="2" fill="#06b6d4"/>
+                </svg>
+                FrameFuseVid
+            </a>
+            <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../docs.html">Docs</a>
+                <a href="index.html" class="active">Blog</a>
+                <a href="https://github.com/mkhalid-s/framefusevid" target="_blank">GitHub</a>
+                <a href="https://github.com/mkhalid-s/framefusevid/releases" class="nav-cta">Download</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== ARTICLE HEADER ===== -->
+<div class="article-header">
+    <div class="container-narrow">
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Blog
+        </a>
+        <span class="blog-tag">Community</span>
+        <h1>How to Contribute to FrameFuseVid</h1>
+        <div class="article-meta">
+            <span>February 16, 2026</span>
+            <span>&middot;</span>
+            <span>4 min read</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ARTICLE BODY ===== -->
+<div class="article-body">
+    <div class="container-narrow">
+
+        <p>Open source is at the heart of FrameFuseVid. Whether you are a developer, designer, or end user, there are many ways to help make this tool better for everyone.</p>
+
+        <h2>Development Setup</h2>
+
+        <p>FrameFuseVid is built with <strong>Electron 40</strong>, <strong>React 18</strong>, <strong>Tailwind CSS</strong>, and <strong>Vite</strong>. If you are familiar with modern web development, you will feel at home.</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="lang-tag">bash</span>
+                <span>Terminal</span>
+            </div>
+            <pre><code><span class="code-comment"># 1. Fork on GitHub, then clone your fork</span>
+git clone https://github.com/<span class="code-string">YOUR_USERNAME</span>/framefusevid.git
+cd framefusevid
+
+<span class="code-comment"># 2. Install dependencies</span>
+npm install
+
+<span class="code-comment"># 3. Start the dev server (Vite + Electron with hot-reload)</span>
+npm run dev</code></pre>
+        </div>
+
+        <div class="info-box tip">
+            <div class="info-box-title">Tip</div>
+            <p>The app uses <code>concurrently</code> and <code>wait-on</code> to start Vite first and then launch Electron once the dev server is ready. Changes to React code hot-reload instantly; changes to the main process require a restart.</p>
+        </div>
+
+        <h2>Project Structure at a Glance</h2>
+
+        <!-- Architecture mini-diagram -->
+        <div class="architecture-diagram" style="margin: 2rem 0;">
+            <svg viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%;">
+                <rect x="10" y="10" width="180" height="180" rx="12" fill="rgba(99,102,241,0.06)" stroke="#6366f1" stroke-width="1" stroke-dasharray="5 3"/>
+                <text x="100" y="35" fill="#818cf8" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">src/</text>
+
+                <rect x="24" y="50" width="152" height="32" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="100" y="70" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">App.jsx (UI + 4 steps)</text>
+
+                <rect x="24" y="92" width="152" height="32" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="100" y="112" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">main/main.js (Electron)</text>
+
+                <rect x="24" y="134" width="152" height="32" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="100" y="154" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">main/preload.js (IPC)</text>
+
+                <rect x="220" y="10" width="180" height="180" rx="12" fill="rgba(6,182,212,0.06)" stroke="#06b6d4" stroke-width="1" stroke-dasharray="5 3"/>
+                <text x="310" y="35" fill="#06b6d4" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Config</text>
+
+                <rect x="234" y="50" width="152" height="32" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="310" y="70" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">vite.config.js</text>
+
+                <rect x="234" y="92" width="152" height="32" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="310" y="112" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">tailwind.config.js</text>
+
+                <rect x="234" y="134" width="152" height="32" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="310" y="154" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">package.json</text>
+
+                <rect x="430" y="10" width="160" height="180" rx="12" fill="rgba(16,185,129,0.06)" stroke="#10b981" stroke-width="1" stroke-dasharray="5 3"/>
+                <text x="510" y="35" fill="#10b981" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">CI / Docs</text>
+
+                <rect x="444" y="50" width="132" height="32" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="510" y="70" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">.github/workflows/</text>
+
+                <rect x="444" y="92" width="132" height="32" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="510" y="112" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">docs/</text>
+
+                <rect x="444" y="134" width="132" height="32" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                <text x="510" y="154" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">CONTRIBUTING.md</text>
+            </svg>
+        </div>
+
+        <h2>Ways to Contribute</h2>
+
+        <h3>1. Report Bugs</h3>
+        <p>If you find an issue, <a href="https://github.com/mkhalid-s/framefusevid/issues">open a GitHub issue</a> using the bug report template. Include your OS, Node.js version, and steps to reproduce.</p>
+
+        <h3>2. Request Features</h3>
+        <p>Have an idea for a new layout, format support, or workflow improvement? Open a feature request issue or start a <a href="https://github.com/mkhalid-s/framefusevid/discussions">discussion</a>.</p>
+
+        <h3>3. Submit Pull Requests</h3>
+        <p>Ready to write code? Here is the workflow:</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="lang-tag">bash</span>
+                <span>PR Workflow</span>
+            </div>
+            <pre><code><span class="code-comment"># Create a feature branch</span>
+git checkout -b feat/my-awesome-feature
+
+<span class="code-comment"># Make changes, test with dev server</span>
+npm run dev
+
+<span class="code-comment"># Commit with a descriptive message</span>
+git commit -m <span class="code-string">"feat: add custom watermark overlay option"</span>
+
+<span class="code-comment"># Push and open a PR on GitHub</span>
+git push origin feat/my-awesome-feature</code></pre>
+        </div>
+
+        <h3>4. Improve Documentation</h3>
+        <p>Found a typo, unclear instruction, or missing guide? PRs to the <code>docs/</code> directory are welcome. The documentation site deploys automatically via GitHub Pages.</p>
+
+        <h3>5. Test on Your Platform</h3>
+        <p>Try FrameFuseVid on different operating systems and Zoom recording configurations. Edge cases and platform-specific issues are valuable reports.</p>
+
+        <h2>Code Style Guidelines</h2>
+
+        <ul>
+            <li>ES6+ features throughout</li>
+            <li>Functional React components with hooks (no class components)</li>
+            <li>Meaningful variable and function names</li>
+            <li>Comments only for complex logic &mdash; let the code speak where possible</li>
+            <li>Keep individual components under ~300 lines</li>
+        </ul>
+
+        <h2>Code of Conduct</h2>
+
+        <p>This project follows a <a href="https://github.com/mkhalid-s/framefusevid/blob/main/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>. By participating you agree to abide by its terms. We are committed to providing a welcoming and inclusive experience for everyone.</p>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <a href="https://github.com/mkhalid-s/framefusevid/blob/main/CONTRIBUTING.md" class="btn btn-primary">Read Full Contributing Guide</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="../index.html" class="logo" style="margin-bottom: 0.5rem;">
+                    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                        <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    </svg>
+                    FrameFuseVid
+                </a>
+                <p>Open-source desktop app for merging Zoom cloud recordings into professional videos.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Product</h3>
+                <ul>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/releases">Downloads</a></li>
+                    <li><a href="../docs.html">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="../docs.html#quickstart">Quick Start</a></li>
+                    <li><a href="../docs.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid">GitHub</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/issues">Issues</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/discussions">Discussions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 FrameFuseVid Contributors. Released under the <a href="https://github.com/mkhalid-s/framefusevid/blob/main/LICENSE">MIT License</a>.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

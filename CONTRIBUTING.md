@@ -52,7 +52,7 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 1. **Fork and clone the repository**
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/framefusevid.git
+git clone https://github.com/mkhalid-s/framefusevid.git
 cd framefusevid
 ```
 
@@ -158,8 +158,8 @@ Currently, FrameFuseVid doesn't have automated tests. Adding tests is a great wa
 ## Need Help?
 
 - Check the [README.md](README.md) for usage documentation
-- Browse existing [GitHub Issues](https://github.com/YOUR-USERNAME/framefusevid/issues)
-- Ask questions in [GitHub Discussions](https://github.com/YOUR-USERNAME/framefusevid/discussions)
+- Browse existing [GitHub Issues](https://github.com/mkhalid-s/framefusevid/issues)
+- Ask questions in [GitHub Discussions](https://github.com/mkhalid-s/framefusevid/discussions)
 
 ## Recognition
 

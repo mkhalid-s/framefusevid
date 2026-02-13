@@ -64,7 +64,7 @@ Security updates are provided for the latest version of FrameFuseVid. We recomme
 
 ## Security Updates
 
-We will release security updates as needed. Check the [Releases](https://github.com/YOUR-USERNAME/framefusevid/releases) page for the latest version.
+We will release security updates as needed. Check the [Releases](https://github.com/mkhalid-s/framefusevid/releases) page for the latest version.
 
 ## Additional Resources
 

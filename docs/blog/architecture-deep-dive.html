@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Deep Dive - FrameFuseVid Blog</title>
+    <meta name="description" content="A technical deep dive into FrameFuseVid's Electron + React + FFmpeg architecture, IPC bridge design, and filter graph generation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container">
+        <nav>
+            <a href="../index.html" class="logo">
+                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                    <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="10" cy="10" r="2" fill="#818cf8"/>
+                    <circle cx="18" cy="18" r="2" fill="#06b6d4"/>
+                </svg>
+                FrameFuseVid
+            </a>
+            <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../docs.html">Docs</a>
+                <a href="index.html" class="active">Blog</a>
+                <a href="https://github.com/mkhalid-s/framefusevid" target="_blank">GitHub</a>
+                <a href="https://github.com/mkhalid-s/framefusevid/releases" class="nav-cta">Download</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== ARTICLE HEADER ===== -->
+<div class="article-header">
+    <div class="container-narrow">
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Blog
+        </a>
+        <span class="blog-tag">Engineering</span>
+        <h1>Architecture Deep Dive: How FFmpeg Powers FrameFuseVid</h1>
+        <div class="article-meta">
+            <span>February 16, 2026</span>
+            <span>&middot;</span>
+            <span>8 min read</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ARTICLE BODY ===== -->
+<div class="article-body">
+    <div class="container-narrow">
+
+        <p>FrameFuseVid combines three technologies to deliver a seamless desktop video-merging experience: <strong>Electron</strong> for the native shell, <strong>React</strong> for the UI, and <strong>FFmpeg</strong> for video encoding. In this post we walk through the architecture, explain the IPC bridge that keeps the renderer sandboxed, and show how FFmpeg filter graphs are generated for each layout.</p>
+
+        <h2>The Three-Layer Stack</h2>
+
+        <div class="architecture-diagram" style="margin: 2rem 0;">
+            <svg viewBox="0 0 700 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%;">
+                <!-- Layer 1: Renderer -->
+                <rect x="50" y="10" width="600" height="70" rx="12" fill="rgba(99,102,241,0.08)" stroke="#6366f1" stroke-width="1.5"/>
+                <text x="80" y="35" fill="#818cf8" font-family="Inter, sans-serif" font-size="13" font-weight="700">Renderer Process</text>
+                <text x="80" y="55" fill="#94a3b8" font-family="Inter, sans-serif" font-size="11">React 18 + Tailwind CSS + Lucide Icons &mdash; sandboxed, no Node.js access</text>
+                <rect x="500" y="22" width="120" height="44" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="1"/>
+                <text x="560" y="48" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">App.jsx</text>
+
+                <!-- Bridge -->
+                <rect x="270" y="90" width="160" height="32" rx="16" fill="#334155"/>
+                <text x="350" y="110" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="700" text-anchor="middle">preload.js (contextBridge)</text>
+                <line x1="350" y1="80" x2="350" y2="90" stroke="#475569" stroke-width="1.5"/>
+                <line x1="350" y1="122" x2="350" y2="132" stroke="#475569" stroke-width="1.5"/>
+
+                <!-- Layer 2: Main -->
+                <rect x="50" y="132" width="600" height="70" rx="12" fill="rgba(6,182,212,0.08)" stroke="#06b6d4" stroke-width="1.5"/>
+                <text x="80" y="157" fill="#06b6d4" font-family="Inter, sans-serif" font-size="13" font-weight="700">Main Process</text>
+                <text x="80" y="177" fill="#94a3b8" font-family="Inter, sans-serif" font-size="11">Electron 40 + Node.js &mdash; IPC handlers, window management, file I/O</text>
+                <rect x="500" y="144" width="120" height="44" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="1"/>
+                <text x="560" y="170" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="10" font-weight="600" text-anchor="middle">main.js</text>
+
+                <!-- Arrow down -->
+                <line x1="350" y1="202" x2="350" y2="220" stroke="#475569" stroke-width="1.5"/>
+                <polygon points="345,218 350,226 355,218" fill="#475569"/>
+
+                <!-- Layer 3: FFmpeg -->
+                <rect x="50" y="228" width="600" height="48" rx="12" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.5"/>
+                <text x="80" y="257" fill="#10b981" font-family="Inter, sans-serif" font-size="13" font-weight="700">FFmpeg (bundled binary)</text>
+                <text x="370" y="257" fill="#94a3b8" font-family="Inter, sans-serif" font-size="11">ffmpeg-static + ffprobe-static &mdash; spawned as child process</text>
+            </svg>
+        </div>
+
+        <p>Each layer has a clear responsibility and minimal coupling to the others:</p>
+
+        <ul>
+            <li><strong>Renderer</strong> &mdash; React renders the 4-step UI (file selection, layout preview, processing, completion). It has no access to Node.js APIs or the filesystem.</li>
+            <li><strong>Preload Bridge</strong> &mdash; <code>preload.js</code> uses Electron's <code>contextBridge</code> to expose a whitelist of IPC channels as <code>window.electronAPI</code>. This is the only communication path between the UI and the backend.</li>
+            <li><strong>Main Process</strong> &mdash; handles all privileged operations: file dialogs, folder scanning, FFprobe metadata extraction, and spawning FFmpeg processes.</li>
+        </ul>
+
+        <h2>The IPC Bridge</h2>
+
+        <p>Electron's security model strongly recommends <em>context isolation</em> and <em>no direct Node.js access</em> in the renderer. FrameFuseVid follows this pattern:</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="lang-tag">javascript</span>
+                <span>src/main/preload.js</span>
+            </div>
+            <pre><code><span class="code-keyword">const</span> { contextBridge, ipcRenderer } = <span class="code-function">require</span>(<span class="code-string">'electron'</span>);
+
+contextBridge.<span class="code-function">exposeInMainWorld</span>(<span class="code-string">'electronAPI'</span>, {
+  <span class="code-comment">// Dialog operations</span>
+  openFiles:     <span class="code-keyword">()</span> <span class="code-operator">=></span> ipcRenderer.<span class="code-function">invoke</span>(<span class="code-string">'dialog:openFiles'</span>),
+  openFolder:    <span class="code-keyword">()</span> <span class="code-operator">=></span> ipcRenderer.<span class="code-function">invoke</span>(<span class="code-string">'dialog:openFolder'</span>),
+  saveFile:      <span class="code-keyword">()</span> <span class="code-operator">=></span> ipcRenderer.<span class="code-function">invoke</span>(<span class="code-string">'dialog:saveFile'</span>),
+
+  <span class="code-comment">// FFmpeg operations</span>
+  combine:       <span class="code-keyword">(opts)</span> <span class="code-operator">=></span> ipcRenderer.<span class="code-function">invoke</span>(<span class="code-string">'ffmpeg:combine'</span>, opts),
+  cancelProcess: <span class="code-keyword">()</span> <span class="code-operator">=></span> ipcRenderer.<span class="code-function">invoke</span>(<span class="code-string">'ffmpeg:cancel'</span>),
+
+  <span class="code-comment">// Event listeners (one-way from main to renderer)</span>
+  onFFmpegProgress: <span class="code-keyword">(cb)</span> <span class="code-operator">=></span>
+    ipcRenderer.<span class="code-function">on</span>(<span class="code-string">'ffmpeg:progress'</span>, (_e, data) <span class="code-operator">=></span> <span class="code-function">cb</span>(data)),
+
+  <span class="code-comment">// ... more channels</span>
+});</code></pre>
+        </div>
+
+        <p>The renderer calls <code>window.electronAPI.combine(options)</code>, which invokes <code>ipcRenderer.invoke('ffmpeg:combine', options)</code>. The main process handles this with <code>ipcMain.handle('ffmpeg:combine', ...)</code> and spawns FFmpeg.</p>
+
+        <div class="info-box note">
+            <div class="info-box-title">Security Note</div>
+            <p>Only whitelisted channels are exposed. The renderer cannot require Node.js modules, access the filesystem, or execute arbitrary code. This is enforced by Electron's context isolation.</p>
+        </div>
+
+        <h2>How FFmpeg Filter Graphs Work</h2>
+
+        <p>FFmpeg's <code>-filter_complex</code> flag accepts a text-based graph description that chains video/audio filters together. FrameFuseVid generates these dynamically based on the user's layout choice.</p>
+
+        <h3>Picture-in-Picture</h3>
+
+        <p>The PIP layout overlays one video on another. The user's drag position and size slider are converted to pixel coordinates:</p>
+
+        <!-- PIP Diagram -->
+        <div class="architecture-diagram" style="margin: 2rem 0;">
+            <svg viewBox="0 0 600 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%;">
+                <!-- Main video -->
+                <rect x="50" y="20" width="500" height="180" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                <text x="70" y="45" fill="#64748b" font-family="Inter, sans-serif" font-size="10" font-weight="600">Main Video (input 0)</text>
+                <!-- Content mock -->
+                <rect x="70" y="60" width="200" height="10" rx="3" fill="#1e293b"/>
+                <rect x="70" y="78" width="280" height="6" rx="3" fill="#1e293b"/>
+                <rect x="70" y="92" width="240" height="6" rx="3" fill="#1e293b"/>
+                <rect x="70" y="110" width="300" height="70" rx="6" fill="rgba(99,102,241,0.06)"/>
+
+                <!-- PIP overlay -->
+                <rect x="380" y="34" width="150" height="110" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
+                <text x="390" y="52" fill="#818cf8" font-family="Inter, sans-serif" font-size="9" font-weight="700">Overlay (input 1)</text>
+                <circle cx="455" cy="78" r="16" fill="#334155"/>
+                <rect x="437" y="100" width="36" height="16" rx="8" fill="#334155"/>
+
+                <!-- Dimension labels -->
+                <line x1="380" y1="150" x2="380" y2="165" stroke="#6366f1" stroke-width="1" stroke-dasharray="3 2"/>
+                <line x1="530" y1="150" x2="530" y2="165" stroke="#6366f1" stroke-width="1" stroke-dasharray="3 2"/>
+                <line x1="380" y1="160" x2="530" y2="160" stroke="#6366f1" stroke-width="1"/>
+                <text x="455" y="174" fill="#818cf8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle">iw * 0.25</text>
+
+                <!-- X,Y label -->
+                <line x1="380" y1="34" x2="375" y2="26" stroke="#f59e0b" stroke-width="1"/>
+                <circle cx="375" cy="24" r="2" fill="#f59e0b"/>
+                <text x="345" y="22" fill="#f59e0b" font-family="JetBrains Mono, monospace" font-size="9">(x, y)</text>
+
+                <!-- Filter code -->
+                <rect x="50" y="210" width="500" height="56" rx="8" fill="#0d1117" stroke="#334155" stroke-width="1"/>
+                <text x="70" y="232" fill="#5c6370" font-family="JetBrains Mono, monospace" font-size="10"># Generated filter_complex</text>
+                <text x="70" y="250" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="10">[1:v]scale=<tspan fill="#d19a66">iw*0.25</tspan>:<tspan fill="#d19a66">-1</tspan>[pip]; [0:v][pip]overlay=<tspan fill="#d19a66">x</tspan>:<tspan fill="#d19a66">y</tspan>[out]</text>
+            </svg>
+        </div>
+
+        <p>The scale factor comes from the overlay size slider (10%&ndash;50%). The <code>x</code> and <code>y</code> values are computed from the user's drag position as percentages of the main video dimensions, then converted to absolute pixels.</p>
+
+        <h3>Side-by-Side</h3>
+
+        <p>Both inputs are scaled to half the output width, aspect-ratio preserved, and padded to fill their half:</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="lang-tag">ffmpeg</span>
+                <span>Filter complex for side-by-side</span>
+            </div>
+            <pre><code><span class="code-comment"># Scale left input to 960px wide, pad to fill 960x1080</span>
+[0:v]scale=<span class="code-number">960</span>:<span class="code-number">1080</span>:force_original_aspect_ratio=decrease,
+  pad=<span class="code-number">960</span>:<span class="code-number">1080</span>:(ow-iw)/2:(oh-ih)/2[left];
+
+<span class="code-comment"># Same for the right input</span>
+[1:v]scale=<span class="code-number">960</span>:<span class="code-number">1080</span>:force_original_aspect_ratio=decrease,
+  pad=<span class="code-number">960</span>:<span class="code-number">1080</span>:(ow-iw)/2:(oh-ih)/2[right];
+
+<span class="code-comment"># Stack them horizontally</span>
+[left][right]hstack[out]</code></pre>
+        </div>
+
+        <h3>Sequential (Concatenation)</h3>
+
+        <p>Videos are concatenated using FFmpeg's concat demuxer. If subtitles are enabled, the subtitle filter is applied before output:</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="lang-tag">ffmpeg</span>
+                <span>Subtitle burning filter</span>
+            </div>
+            <pre><code><span class="code-comment"># Burn VTT captions into the video</span>
+-vf subtitles=<span class="code-string">'captions.vtt'</span></code></pre>
+        </div>
+
+        <h3>Audio Merge</h3>
+
+        <p>The simplest layout &mdash; maps the video stream from one input and the audio stream from another:</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="lang-tag">ffmpeg</span>
+                <span>Audio replacement</span>
+            </div>
+            <pre><code>ffmpeg -i <span class="code-string">video.mp4</span> -i <span class="code-string">audio.m4a</span> \
+  -map <span class="code-number">0:v</span> -map <span class="code-number">1:a</span> \
+  -c:v copy -c:a aac -b:a <span class="code-number">192k</span> \
+  output.mp4</code></pre>
+        </div>
+
+        <p>The video stream is copied without re-encoding (<code>-c:v copy</code>), so this operation is fast.</p>
+
+        <h2>Quality Presets Under the Hood</h2>
+
+        <p>The three presets map to FFmpeg's <code>-preset</code> and <code>-crf</code> flags:</p>
+
+        <div class="comparison-table-wrapper" style="margin: 1.5rem 0;">
+            <table class="comparison-table">
+                <thead><tr><th>UI Preset</th><th>FFmpeg <code>-preset</code></th><th><code>-crf</code></th><th>Result</th></tr></thead>
+                <tbody>
+                    <tr><td>Fast</td><td><code>ultrafast</code></td><td>28</td><td>Quick encode, larger file, lower quality</td></tr>
+                    <tr><td>Medium</td><td><code>medium</code></td><td>23</td><td>Balanced default</td></tr>
+                    <tr><td>Slow</td><td><code>slow</code></td><td>20</td><td>Slow encode, smallest file, best quality</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>CRF (Constant Rate Factor) controls quality on a logarithmic scale where lower numbers mean higher quality. The difference between CRF 23 and 20 is visually noticeable on detailed content like slides and code demos.</p>
+
+        <h2>Progress Tracking</h2>
+
+        <p>FFmpeg reports progress to stderr. The <code>fluent-ffmpeg</code> library parses this and emits <code>progress</code> events with percentage, timemark, and FPS. The main process forwards these to the renderer via IPC:</p>
+
+        <!-- Progress flow diagram -->
+        <div class="architecture-diagram" style="margin: 2rem 0;">
+            <svg viewBox="0 0 700 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%;">
+                <rect x="10" y="15" width="140" height="50" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+                <text x="80" y="44" fill="#10b981" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">FFmpeg stderr</text>
+
+                <path d="M155 40 L190 40" stroke="#475569" stroke-width="1.5" marker-end="url(#arrP)"/>
+
+                <rect x="195" y="15" width="150" height="50" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5"/>
+                <text x="270" y="38" fill="#06b6d4" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">fluent-ffmpeg</text>
+                <text x="270" y="52" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">.on('progress')</text>
+
+                <path d="M350 40 L385 40" stroke="#475569" stroke-width="1.5" marker-end="url(#arrP)"/>
+
+                <rect x="390" y="15" width="120" height="50" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+                <text x="450" y="38" fill="#f59e0b" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">IPC send</text>
+                <text x="450" y="52" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">ffmpeg:progress</text>
+
+                <path d="M515 40 L550 40" stroke="#475569" stroke-width="1.5" marker-end="url(#arrP)"/>
+
+                <rect x="555" y="15" width="135" height="50" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
+                <text x="622" y="38" fill="#818cf8" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">React UI</text>
+                <text x="622" y="52" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">Progress bar</text>
+
+                <defs><marker id="arrP" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#475569"/></marker></defs>
+            </svg>
+        </div>
+
+        <h2>File Detection Strategy</h2>
+
+        <p>When a user scans a folder, the main process walks the directory and matches each filename against Zoom's conventions:</p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="lang-tag">javascript</span>
+                <span>Pattern matching logic (simplified)</span>
+            </div>
+            <pre><code><span class="code-keyword">function</span> <span class="code-function">detectFileType</span>(filename) {
+  <span class="code-keyword">const</span> lower = filename.<span class="code-function">toLowerCase</span>();
+
+  <span class="code-keyword">if</span> (/shared_screen|screenshare|screen_share/.<span class="code-function">test</span>(lower))
+    <span class="code-keyword">return</span> <span class="code-string">'screen'</span>;
+
+  <span class="code-keyword">if</span> (/speaker|active_speaker|_as_|_avo_/.<span class="code-function">test</span>(lower))
+    <span class="code-keyword">return</span> <span class="code-string">'speaker'</span>;
+
+  <span class="code-keyword">if</span> (/gallery|_gv_|_gvo_/.<span class="code-function">test</span>(lower))
+    <span class="code-keyword">return</span> <span class="code-string">'gallery'</span>;
+
+  <span class="code-keyword">if</span> (/audio_only|\.m4a$|\.mp3$/.<span class="code-function">test</span>(lower))
+    <span class="code-keyword">return</span> <span class="code-string">'audio'</span>;
+
+  <span class="code-keyword">if</span> (/\.vtt$|\.srt$/.<span class="code-function">test</span>(lower))
+    <span class="code-keyword">return</span> <span class="code-string">'transcript'</span>;
+
+  <span class="code-keyword">return</span> <span class="code-string">'unknown'</span>;
+}</code></pre>
+        </div>
+
+        <p>Users can override the detected type via a dropdown in the file list. This keeps the auto-detection non-destructive while still handling edge cases.</p>
+
+        <h2>Build and Distribution</h2>
+
+        <p>The CI pipeline in <code>.github/workflows/build.yml</code> runs on a matrix of Ubuntu, Windows, and macOS runners. Each builds the app using <code>electron-builder</code> and uploads platform-specific artifacts:</p>
+
+        <ul>
+            <li><strong>macOS</strong> &mdash; <code>.dmg</code> via electron-builder's dmg target</li>
+            <li><strong>Windows</strong> &mdash; <code>.exe</code> NSIS installer</li>
+            <li><strong>Linux</strong> &mdash; <code>.AppImage</code></li>
+        </ul>
+
+        <p>On version tag pushes (<code>v*</code>), a release job downloads all three artifacts and creates a GitHub Release with the binaries attached.</p>
+
+        <h2>What's Next</h2>
+
+        <p>The current architecture is intentionally simple &mdash; a single React component for the UI and a single main process file for the backend. As the feature set grows (batch processing, custom templates, CLI mode), we plan to modularize both layers while keeping the same security model intact.</p>
+
+        <p>Interested in the code? <a href="https://github.com/mkhalid-s/framefusevid">Browse the repository on GitHub</a> or check the <a href="../docs.html">documentation</a> for the full IPC API reference.</p>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <a href="https://github.com/mkhalid-s/framefusevid" class="btn btn-primary">Explore the Source</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="../index.html" class="logo" style="margin-bottom: 0.5rem;">
+                    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                        <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    </svg>
+                    FrameFuseVid
+                </a>
+                <p>Open-source desktop app for merging Zoom cloud recordings into professional videos.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Product</h3>
+                <ul>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/releases">Downloads</a></li>
+                    <li><a href="../docs.html">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="../docs.html#quickstart">Quick Start</a></li>
+                    <li><a href="../docs.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid">GitHub</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/issues">Issues</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/discussions">Discussions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 FrameFuseVid Contributors. Released under the <a href="https://github.com/mkhalid-s/framefusevid/blob/main/LICENSE">MIT License</a>.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

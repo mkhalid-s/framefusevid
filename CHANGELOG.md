@@ -56,11 +56,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
-Each release is tagged with its version number on GitHub. See [Releases](https://github.com/YOUR-USERNAME/framefusevid/releases) for more information.
+Each release is tagged with its version number on GitHub. See [Releases](https://github.com/mkhalid-s/framefusevid/releases) for more information.
 
 ### How to Report Issues
 
-If you find a bug or have a feature request, please open an issue on [GitHub Issues](https://github.com/YOUR-USERNAME/framefusevid/issues).
+If you find a bug or have a feature request, please open an issue on [GitHub Issues](https://github.com/mkhalid-s/framefusevid/issues).
 
 ### How to Contribute
 

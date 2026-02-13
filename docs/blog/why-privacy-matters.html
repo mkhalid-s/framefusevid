@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Privacy Matters for Video Processing - FrameFuseVid Blog</title>
+    <meta name="description" content="Why local video processing is critical for enterprises handling sensitive Zoom recordings, and how FrameFuseVid keeps your data on your machine.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container">
+        <nav>
+            <a href="../index.html" class="logo">
+                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                    <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="10" cy="10" r="2" fill="#818cf8"/>
+                    <circle cx="18" cy="18" r="2" fill="#06b6d4"/>
+                </svg>
+                FrameFuseVid
+            </a>
+            <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../docs.html">Docs</a>
+                <a href="index.html" class="active">Blog</a>
+                <a href="https://github.com/mkhalid-s/framefusevid" target="_blank">GitHub</a>
+                <a href="https://github.com/mkhalid-s/framefusevid/releases" class="nav-cta">Download</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== ARTICLE HEADER ===== -->
+<div class="article-header">
+    <div class="container-narrow">
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Blog
+        </a>
+        <span class="blog-tag">Privacy</span>
+        <h1>Why Privacy Matters for Video Processing Tools</h1>
+        <div class="article-meta">
+            <span>February 16, 2026</span>
+            <span>&middot;</span>
+            <span>6 min read</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ARTICLE BODY ===== -->
+<div class="article-body">
+    <div class="container-narrow">
+
+        <p>When a company records a Zoom meeting, the content often includes proprietary information: product roadmaps, financial data, customer details, internal strategy, even personally identifiable information. The instinct to "just use an online video editor" to combine recording files creates a significant and often overlooked security risk.</p>
+
+        <h2>The Problem With Cloud-Based Video Editors</h2>
+
+        <p>Most online video merging tools work by uploading your files to their servers, processing them remotely, and then letting you download the result. This means:</p>
+
+        <ul>
+            <li>Your <strong>recording files transit the internet</strong>, potentially unencrypted</li>
+            <li>The service provider <strong>stores your data on their infrastructure</strong>, even temporarily</li>
+            <li>You rely on their <strong>data retention and deletion policies</strong> (which may be vague or unenforced)</li>
+            <li>A breach at the service provider <strong>exposes your recordings</strong></li>
+            <li>Depending on jurisdiction, your data may be <strong>subject to foreign data access laws</strong></li>
+        </ul>
+
+        <blockquote>
+            <p>"Companies that rely on large amounts of data or have sensitive information that they don't want to ship offsite may resist cloud editing because moving data and sharing it across multiple services can increase the risk of data leaks."<br>&mdash; Seagate Technology</p>
+        </blockquote>
+
+        <h2>Who Needs to Care?</h2>
+
+        <p>For some organizations, uploading meeting recordings to a third-party service is not just risky &mdash; it may be a compliance violation:</p>
+
+        <!-- Compliance diagram -->
+        <div class="architecture-diagram" style="margin: 2rem 0;">
+            <svg viewBox="0 0 700 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%;">
+                <rect x="10" y="10" width="155" height="140" rx="12" fill="rgba(239,68,68,0.06)" stroke="#ef4444" stroke-width="1"/>
+                <text x="87" y="40" fill="#ef4444" font-family="Inter, sans-serif" font-size="13" font-weight="800" text-anchor="middle">Finance</text>
+                <text x="87" y="62" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">SEC, FINRA, SOX</text>
+                <text x="87" y="80" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">MiFID II, PCI DSS</text>
+                <rect x="28" y="98" width="118" height="36" rx="6" fill="#1e293b"/>
+                <text x="87" y="120" fill="#ef4444" font-family="Inter, sans-serif" font-size="9" font-weight="600" text-anchor="middle">Data must stay local</text>
+
+                <rect x="185" y="10" width="155" height="140" rx="12" fill="rgba(245,158,11,0.06)" stroke="#f59e0b" stroke-width="1"/>
+                <text x="262" y="40" fill="#f59e0b" font-family="Inter, sans-serif" font-size="13" font-weight="800" text-anchor="middle">Healthcare</text>
+                <text x="262" y="62" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">HIPAA, HITECH</text>
+                <text x="262" y="80" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">Patient privacy</text>
+                <rect x="203" y="98" width="118" height="36" rx="6" fill="#1e293b"/>
+                <text x="262" y="120" fill="#f59e0b" font-family="Inter, sans-serif" font-size="9" font-weight="600" text-anchor="middle">PHI restrictions</text>
+
+                <rect x="360" y="10" width="155" height="140" rx="12" fill="rgba(99,102,241,0.06)" stroke="#6366f1" stroke-width="1"/>
+                <text x="437" y="40" fill="#818cf8" font-family="Inter, sans-serif" font-size="13" font-weight="800" text-anchor="middle">Legal</text>
+                <text x="437" y="62" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">Attorney-client privilege</text>
+                <text x="437" y="80" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">eDiscovery rules</text>
+                <rect x="378" y="98" width="118" height="36" rx="6" fill="#1e293b"/>
+                <text x="437" y="120" fill="#818cf8" font-family="Inter, sans-serif" font-size="9" font-weight="600" text-anchor="middle">Chain of custody</text>
+
+                <rect x="535" y="10" width="155" height="140" rx="12" fill="rgba(16,185,129,0.06)" stroke="#10b981" stroke-width="1"/>
+                <text x="612" y="40" fill="#10b981" font-family="Inter, sans-serif" font-size="13" font-weight="800" text-anchor="middle">Government</text>
+                <text x="612" y="62" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">GDPR, FedRAMP</text>
+                <text x="612" y="80" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">Data sovereignty</text>
+                <rect x="553" y="98" width="118" height="36" rx="6" fill="#1e293b"/>
+                <text x="612" y="120" fill="#10b981" font-family="Inter, sans-serif" font-size="9" font-weight="600" text-anchor="middle">On-prem requirement</text>
+            </svg>
+        </div>
+
+        <p>For these industries, the simple act of uploading a meeting recording to a free online tool can trigger audit findings, regulatory penalties, or breach notification obligations.</p>
+
+        <h2>FrameFuseVid's Approach: Process Locally, Period</h2>
+
+        <p>FrameFuseVid takes a fundamentally different approach. Instead of uploading files to a server, everything happens on your machine:</p>
+
+        <ul>
+            <li><strong>Zero network calls</strong> &mdash; the app works entirely offline after installation</li>
+            <li><strong>Bundled FFmpeg</strong> &mdash; the video engine is included in the app; no external services involved</li>
+            <li><strong>No telemetry</strong> &mdash; we do not collect usage data, crash reports, or analytics</li>
+            <li><strong>No accounts</strong> &mdash; no sign-up, no login, no license key</li>
+            <li><strong>Open source</strong> &mdash; you can read every line of code to verify these claims</li>
+        </ul>
+
+        <div class="info-box tip">
+            <div class="info-box-title">Verification</div>
+            <p>You can confirm FrameFuseVid makes no network requests by running it in an environment with no internet connectivity, or by monitoring outbound connections with a tool like Little Snitch (macOS) or Wireshark.</p>
+        </div>
+
+        <h2>Local vs. Cloud: A Comparison</h2>
+
+        <div class="comparison-table-wrapper" style="margin: 1.5rem 0;">
+            <table class="comparison-table">
+                <thead><tr><th>Consideration</th><th class="highlight">Local (FrameFuseVid)</th><th>Cloud Editor</th></tr></thead>
+                <tbody>
+                    <tr><td>Data leaves your machine</td><td class="highlight"><span class="check">No</span></td><td><span class="cross">Yes</span></td></tr>
+                    <tr><td>Works offline</td><td class="highlight"><span class="check">Yes</span></td><td><span class="cross">No</span></td></tr>
+                    <tr><td>Third-party data access</td><td class="highlight"><span class="check">None</span></td><td><span class="cross">Service provider</span></td></tr>
+                    <tr><td>Compliance-friendly</td><td class="highlight"><span class="check">Yes</span></td><td>Depends on vendor</td></tr>
+                    <tr><td>Breach exposure</td><td class="highlight"><span class="check">Local only</span></td><td><span class="cross">Vendor + transit</span></td></tr>
+                    <tr><td>Data retention control</td><td class="highlight"><span class="check">You control</span></td><td><span class="cross">Vendor policy</span></td></tr>
+                    <tr><td>Audit trail</td><td class="highlight"><span class="check">OS-level</span></td><td>Vendor-dependent</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>The Open Source Advantage</h2>
+
+        <p>Privacy claims are only as strong as your ability to verify them. Closed-source tools can claim "we don't store your data" but you have no way to confirm it. With FrameFuseVid:</p>
+
+        <ul>
+            <li>The <a href="https://github.com/mkhalid-s/framefusevid/blob/main/src/main/main.js">main process code</a> is public &mdash; you can see that no HTTP requests are made</li>
+            <li>The <a href="https://github.com/mkhalid-s/framefusevid/blob/main/src/main/preload.js">preload bridge</a> is public &mdash; you can see exactly which IPC channels are exposed</li>
+            <li>The <a href="https://github.com/mkhalid-s/framefusevid/blob/main/package.json">dependency list</a> is public &mdash; you can audit every package</li>
+        </ul>
+
+        <p>Security teams can fork the repository, audit the code, and build from source if they need an extra layer of assurance.</p>
+
+        <h2>Practical Recommendations</h2>
+
+        <p>If your organization handles sensitive meeting recordings, here is what we suggest:</p>
+
+        <ol>
+            <li><strong>Avoid cloud video editors</strong> for any recording that contains proprietary, financial, legal, or personal information</li>
+            <li><strong>Use local tools</strong> like FrameFuseVid that process files on-device</li>
+            <li><strong>Audit your tools</strong> &mdash; if a tool is open source, have your security team review the code</li>
+            <li><strong>Document your workflow</strong> &mdash; include video processing in your data handling policies</li>
+            <li><strong>Encrypt at rest</strong> &mdash; use full-disk encryption on machines that store recording files</li>
+        </ol>
+
+        <h2>Conclusion</h2>
+
+        <p>The convenience of cloud-based video tools comes with a hidden cost: loss of control over sensitive data. For organizations that take data privacy seriously, local processing is not a nice-to-have &mdash; it is a requirement. FrameFuseVid was designed from the ground up to meet this requirement without sacrificing usability.</p>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <a href="https://github.com/mkhalid-s/framefusevid/releases" class="btn btn-primary">Download FrameFuseVid</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="../index.html" class="logo" style="margin-bottom: 0.5rem;">
+                    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                        <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    </svg>
+                    FrameFuseVid
+                </a>
+                <p>Open-source desktop app for merging Zoom cloud recordings into professional videos.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Product</h3>
+                <ul>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/releases">Downloads</a></li>
+                    <li><a href="../docs.html">Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="../docs.html#quickstart">Quick Start</a></li>
+                    <li><a href="../docs.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid">GitHub</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/issues">Issues</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/discussions">Discussions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 FrameFuseVid Contributors. Released under the <a href="https://github.com/mkhalid-s/framefusevid/blob/main/LICENSE">MIT License</a>.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

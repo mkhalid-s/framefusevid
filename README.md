@@ -1,7 +1,7 @@
 # FrameFuseVid
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/Version-0.1.0-blue.svg)](https://github.com/YOUR-USERNAME/framefusevid/releases)
+[![Version](https://img.shields.io/badge/Version-0.1.0-blue.svg)](https://github.com/mkhalid-s/framefusevid/releases)
 [![Node.js](https://img.shields.io/badge/Node.js-v16+-green.svg)](https://nodejs.org/)
 [![Electron](https://img.shields.io/badge/Electron-28+-purple.svg)](https://www.electronjs.org/)
 [![React](https://img.shields.io/badge/React-18+-61DAFB.svg)](https://react.dev/)
@@ -179,6 +179,14 @@ The app automatically identifies Zoom files by these naming patterns:
 | Gallery View | `gallery`, `_gv_`, `_gvo_` |
 | Audio | `audio_only`, `.m4a`, `.mp3` |
 | Transcript | `.vtt`, `.srt` |
+
+## Documentation
+
+For comprehensive documentation, visit our [Documentation Website](https://mkhalid-s.github.io/framefusevid/).
+
+- **[Product Overview](docs/PRODUCT_OVERVIEW.md)** - Detailed features and use cases
+- **[Blog](docs/blog/index.html)** - Latest updates and tutorials
+- **[Contributing Guide](docs/blog/how-to-contribute.html)** - How to get involved
 
 ## Troubleshooting
 

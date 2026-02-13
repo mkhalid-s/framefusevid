@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - FrameFuseVid</title>
+    <meta name="description" content="FrameFuseVid documentation: installation, usage, architecture, configuration, and API reference.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                    <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="10" cy="10" r="2" fill="#818cf8"/>
+                    <circle cx="18" cy="18" r="2" fill="#06b6d4"/>
+                </svg>
+                FrameFuseVid
+            </a>
+            <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="docs.html" class="active">Docs</a>
+                <a href="blog/">Blog</a>
+                <a href="https://github.com/mkhalid-s/framefusevid" target="_blank">GitHub</a>
+                <a href="https://github.com/mkhalid-s/framefusevid/releases" class="nav-cta">Download</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== DOC LAYOUT ===== -->
+<div class="container">
+    <div class="doc-layout">
+        <!-- Sidebar -->
+        <aside class="doc-sidebar">
+            <nav>
+                <h4>Getting Started</h4>
+                <a href="#overview" class="active">Overview</a>
+                <a href="#installation">Installation</a>
+                <a href="#quickstart">Quick Start</a>
+                <a href="#system-requirements">System Requirements</a>
+
+                <h4>Usage</h4>
+                <a href="#selecting-files">Selecting Files</a>
+                <a href="#layout-options">Layout Options</a>
+                <a href="#pip-customization">PIP Customization</a>
+                <a href="#quality-presets">Quality Presets</a>
+                <a href="#subtitle-burning">Subtitle Burning</a>
+                <a href="#processing">Processing</a>
+
+                <h4>Development</h4>
+                <a href="#architecture">Architecture</a>
+                <a href="#project-structure">Project Structure</a>
+                <a href="#ipc-api">IPC API Reference</a>
+                <a href="#ffmpeg-pipeline">FFmpeg Pipeline</a>
+                <a href="#building">Building &amp; Packaging</a>
+
+                <h4>More</h4>
+                <a href="#file-detection">File Detection Patterns</a>
+                <a href="#supported-formats">Supported Formats</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contributing">Contributing</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <main class="doc-content">
+
+            <!-- OVERVIEW -->
+            <section id="overview">
+                <h1>FrameFuseVid Documentation</h1>
+                <p>FrameFuseVid is a cross-platform desktop application that combines multiple Zoom cloud recording files into a single professional video. It processes everything locally &mdash; no files are uploaded to any server.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Current Version</div>
+                    <p>You are reading documentation for <strong>FrameFuseVid v0.1.0</strong>. For the latest release, check the <a href="https://github.com/mkhalid-s/framefusevid/releases">GitHub releases page</a>.</p>
+                </div>
+            </section>
+
+            <!-- INSTALLATION -->
+            <section id="installation">
+                <h2>Installation</h2>
+                <p>Download the latest release for your platform from GitHub:</p>
+
+                <div class="platform-badges" style="margin: 1.5rem 0;">
+                    <div class="platform-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83"/><path d="M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/></svg>
+                        macOS (.dmg)
+                    </div>
+                    <div class="platform-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+                        Windows (.exe)
+                    </div>
+                    <div class="platform-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a7.3 7.3 0 0 0 .455 1.636c.165.378.351.755.577 1.126.226.373.479.737.788 1.073.308.336.676.645 1.102.87.42.222.894.346 1.376.371a6.5 6.5 0 0 0 1.537-.085c.287-.065.586-.16.883-.295.297-.135.586-.313.838-.567.253-.254.455-.572.597-.96.143-.39.22-.842.22-1.328 0-.486-.078-.937-.22-1.327-.142-.388-.344-.706-.597-.96-.252-.254-.54-.432-.838-.567a4.7 4.7 0 0 0-.883-.295 6.5 6.5 0 0 0-1.537-.085c-.12.003-.238.012-.354.027.052-.194.12-.395.204-.601.204-.488.52-1.008.963-1.497.444-.488 1.004-.908 1.735-1.116.364-.103.762-.155 1.186-.155s.822.052 1.186.155c.731.208 1.29.628 1.735 1.116.444.49.76 1.009.963 1.497.085.206.152.407.204.601a6.4 6.4 0 0 0-.354-.027 6.5 6.5 0 0 0-1.537.085c-.287.065-.586.16-.883.295-.297.135-.586.313-.838.567-.253.254-.455.572-.597.96-.143.39-.22.841-.22 1.327s.077.939.22 1.328c.142.388.344.706.597.96.252.254.54.432.838.567.297.135.596.23.883.295a6.5 6.5 0 0 0 1.537.085c.482-.025.956-.149 1.376-.37.426-.226.794-.535 1.102-.87.309-.337.562-.701.788-1.074.226-.371.412-.748.577-1.126a7.3 7.3 0 0 0 .455-1.636c.123-.805-.01-1.657-.287-2.489-.59-1.771-1.831-3.47-2.716-4.521-.75-1.067-.974-1.928-1.05-3.02-.065-1.491 1.056-5.965-3.17-6.298A5.1 5.1 0 0 0 12.504 0"/></svg>
+                        Linux (.AppImage)
+                    </div>
+                </div>
+
+                <h3>Install from Source</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="lang-tag">bash</span>
+                        <span>Terminal</span>
+                    </div>
+                    <pre><code><span class="code-comment"># Clone the repository</span>
+git clone https://github.com/mkhalid-s/framefusevid.git
+cd framefusevid
+
+<span class="code-comment"># Install dependencies</span>
+npm install
+
+<span class="code-comment"># Start in development mode</span>
+npm run dev</code></pre>
+                </div>
+            </section>
+
+            <!-- QUICK START -->
+            <section id="quickstart">
+                <h2>Quick Start</h2>
+                <ol>
+                    <li><strong>Launch</strong> FrameFuseVid</li>
+                    <li>Click <strong>"Scan Folder"</strong> and select the folder containing your Zoom cloud recording files</li>
+                    <li>The app auto-detects file types (screen share, speaker, gallery, audio, transcript)</li>
+                    <li>Choose a <strong>layout</strong> &mdash; PIP, Side-by-Side, Sequential, or Audio Merge</li>
+                    <li>Adjust settings (overlay position, size, quality preset)</li>
+                    <li>Click <strong>"Combine"</strong> and choose an output location</li>
+                    <li>Wait for processing &mdash; a progress bar shows percentage and FPS</li>
+                    <li>Done. Click <strong>"Show in Folder"</strong> to open the output.</li>
+                </ol>
+            </section>
+
+            <!-- SYSTEM REQUIREMENTS -->
+            <section id="system-requirements">
+                <h2>System Requirements</h2>
+
+                <div class="comparison-table-wrapper" style="margin-top: 1rem;">
+                    <table class="comparison-table">
+                        <thead><tr><th>Component</th><th>Minimum</th><th>Recommended</th></tr></thead>
+                        <tbody>
+                            <tr><td>OS</td><td>macOS 10.13+ / Windows 10 / Ubuntu 18.04+</td><td>Latest stable</td></tr>
+                            <tr><td>RAM</td><td>4 GB</td><td>8 GB+</td></tr>
+                            <tr><td>Storage</td><td>500 MB + video space</td><td>SSD</td></tr>
+                            <tr><td>CPU</td><td>Intel Core i5 / Apple M1</td><td>Modern multi-core</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SELECTING FILES -->
+            <section id="selecting-files">
+                <h2>Selecting Files</h2>
+                <p>FrameFuseVid offers two ways to import recordings:</p>
+
+                <h3>Folder Scanning</h3>
+                <p>Click <strong>"Scan Folder"</strong> to pick a directory. The app recursively scans for supported video, audio, and subtitle files and auto-assigns types based on Zoom's naming conventions (see <a href="#file-detection">File Detection Patterns</a>).</p>
+
+                <h3>Manual Selection</h3>
+                <p>Click <strong>"Add Files"</strong> to pick individual files. You can manually override the detected file type using the dropdown next to each file.</p>
+
+                <p>Each file shows metadata extracted via FFprobe:</p>
+                <ul>
+                    <li>Resolution (e.g., 1920&times;1080)</li>
+                    <li>Duration</li>
+                    <li>File size</li>
+                    <li>Frame rate (FPS)</li>
+                    <li>Codec information</li>
+                </ul>
+            </section>
+
+            <!-- LAYOUT OPTIONS -->
+            <section id="layout-options">
+                <h2>Layout Options</h2>
+
+                <h3>Picture-in-Picture (PIP)</h3>
+                <p>Overlays a secondary video on top of the main video. The overlay is resizable (10%&ndash;50%) and can be dragged to any position or snapped to corners.</p>
+                <div class="info-box tip">
+                    <div class="info-box-title">Tip</div>
+                    <p>Use PIP when your main content is a screen share and you want the speaker visible in a small overlay.</p>
+                </div>
+
+                <h3>Side-by-Side</h3>
+                <p>Splits the frame into a 50/50 horizontal layout with both videos playing simultaneously. Both inputs are scaled and padded to fill their half.</p>
+
+                <h3>Sequential</h3>
+                <p>Concatenates videos one after another. Optionally burns VTT/SRT subtitles into the output. Useful for multi-segment recordings.</p>
+
+                <h3>Audio Merge</h3>
+                <p>Replaces the audio track of a video with a separate audio file (e.g., the Zoom audio-only M4A). Keeps the original video stream untouched.</p>
+            </section>
+
+            <!-- PIP CUSTOMIZATION -->
+            <section id="pip-customization">
+                <h2>PIP Customization</h2>
+                <p>When the PIP layout is selected, additional controls appear:</p>
+                <ul>
+                    <li><strong>Overlay Size</strong> &mdash; slider from 10% to 50% of the main video dimensions</li>
+                    <li><strong>Position Presets</strong> &mdash; Top-Left, Top-Right, Bottom-Left, Bottom-Right</li>
+                    <li><strong>Custom Position</strong> &mdash; drag the overlay in the live preview to place it anywhere</li>
+                    <li><strong>Source Selection</strong> &mdash; choose which file is the main video and which is the overlay</li>
+                </ul>
+
+                <p>Positions are stored as percentages, so they scale correctly regardless of output resolution.</p>
+            </section>
+
+            <!-- QUALITY PRESETS -->
+            <section id="quality-presets">
+                <h2>Quality Presets</h2>
+                <div class="comparison-table-wrapper" style="margin-top: 1rem;">
+                    <table class="comparison-table">
+                        <thead><tr><th>Preset</th><th>Encoder Speed</th><th>CRF</th><th>Trade-off</th></tr></thead>
+                        <tbody>
+                            <tr><td>Fast</td><td><code>ultrafast</code></td><td>28</td><td>Larger file, faster encode</td></tr>
+                            <tr><td>Medium</td><td><code>medium</code></td><td>23</td><td>Balanced quality and speed</td></tr>
+                            <tr><td>Slow</td><td><code>slow</code></td><td>20</td><td>Smaller file, best quality</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 1rem;">All presets use H.264 video codec and AAC audio at 192 kbps.</p>
+            </section>
+
+            <!-- SUBTITLE BURNING -->
+            <section id="subtitle-burning">
+                <h2>Subtitle Burning</h2>
+                <p>When a VTT or SRT file is present in the file list, enable <strong>"Burn Subtitles"</strong> to hard-code captions into the video pixels. This ensures captions are visible on any player without separate subtitle file support.</p>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">Note</div>
+                    <p>Burned subtitles cannot be toggled off during playback. If you need toggleable captions, keep the subtitle file separate alongside the video.</p>
+                </div>
+            </section>
+
+            <!-- PROCESSING -->
+            <section id="processing">
+                <h2>Processing</h2>
+                <p>After configuring your layout and settings:</p>
+                <ol>
+                    <li>Click <strong>"Combine"</strong></li>
+                    <li>Choose an output file name and location</li>
+                    <li>The progress bar shows: percentage complete, current timecode, and encoding FPS</li>
+                    <li>You can <strong>cancel</strong> at any time &mdash; the partial output file is cleaned up</li>
+                    <li>On completion, use <strong>"Show in Folder"</strong> to locate the output</li>
+                </ol>
+            </section>
+
+            <!-- ARCHITECTURE -->
+            <section id="architecture">
+                <h2>Architecture</h2>
+                <p>FrameFuseVid follows a standard Electron architecture with strict process isolation:</p>
+
+                <div class="architecture-diagram" style="margin: 2rem 0;">
+                    <svg viewBox="0 0 700 360" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%;">
+                        <!-- Renderer -->
+                        <rect x="50" y="20" width="600" height="100" rx="12" fill="rgba(99,102,241,0.06)" stroke="#6366f1" stroke-width="1" stroke-dasharray="6 3"/>
+                        <text x="70" y="45" fill="#818cf8" font-family="Inter, sans-serif" font-size="12" font-weight="700">RENDERER PROCESS (sandboxed, no Node.js access)</text>
+
+                        <rect x="70" y="60" width="120" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <text x="130" y="86" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle">App.jsx</text>
+
+                        <rect x="210" y="60" width="120" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <text x="270" y="86" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle">VideoPreview</text>
+
+                        <rect x="350" y="60" width="140" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <text x="420" y="86" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle">DraggableOverlay</text>
+
+                        <rect x="510" y="60" width="120" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <text x="570" y="86" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle">LayoutPreview</text>
+
+                        <!-- Preload / IPC -->
+                        <rect x="250" y="140" width="200" height="40" rx="20" fill="#334155"/>
+                        <text x="350" y="164" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle">preload.js &mdash; IPC Bridge</text>
+                        <line x1="350" y1="120" x2="350" y2="140" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="350" y1="180" x2="350" y2="200" stroke="#475569" stroke-width="1.5"/>
+
+                        <!-- Main -->
+                        <rect x="50" y="200" width="600" height="100" rx="12" fill="rgba(6,182,212,0.06)" stroke="#06b6d4" stroke-width="1" stroke-dasharray="6 3"/>
+                        <text x="70" y="225" fill="#06b6d4" font-family="Inter, sans-serif" font-size="12" font-weight="700">MAIN PROCESS (full Node.js access)</text>
+
+                        <rect x="70" y="240" width="130" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <text x="135" y="260" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Window Mgmt</text>
+                        <text x="135" y="274" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">BrowserWindow</text>
+
+                        <rect x="220" y="240" width="130" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <text x="285" y="260" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle">FFmpeg Engine</text>
+                        <text x="285" y="274" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">fluent-ffmpeg</text>
+
+                        <rect x="370" y="240" width="130" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <text x="435" y="260" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle">File Scanner</text>
+                        <text x="435" y="274" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">Pattern matching</text>
+
+                        <rect x="520" y="240" width="110" height="44" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <text x="575" y="260" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle">Storage</text>
+                        <text x="575" y="274" fill="#64748b" font-family="Inter, sans-serif" font-size="9" text-anchor="middle">electron-store</text>
+
+                        <!-- OS Layer -->
+                        <rect x="50" y="320" width="600" height="30" rx="6" fill="rgba(255,255,255,0.03)" stroke="#334155" stroke-width="1"/>
+                        <text x="350" y="340" fill="#64748b" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle">macOS / Windows / Linux &middot; Bundled FFmpeg Binary &middot; Local File System</text>
+                        <line x1="350" y1="300" x2="350" y2="320" stroke="#475569" stroke-width="1.5"/>
+                    </svg>
+                </div>
+
+                <h3>Security Model</h3>
+                <ul>
+                    <li><strong>Context Isolation</strong> &mdash; the renderer has no direct access to Node.js APIs</li>
+                    <li><strong>Preload Bridge</strong> &mdash; only whitelisted IPC channels are exposed via <code>contextBridge</code></li>
+                    <li><strong>No Remote Code</strong> &mdash; all processing is local; no external URLs loaded</li>
+                    <li><strong>No Telemetry</strong> &mdash; zero data collection or network calls</li>
+                </ul>
+            </section>
+
+            <!-- PROJECT STRUCTURE -->
+            <section id="project-structure">
+                <h2>Project Structure</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="lang-tag">text</span>
+                        <span>Directory Layout</span>
+                    </div>
+                    <pre><code>framefusevid/
+├── src/
+│   ├── main/
+│   │   ├── main.js          <span class="code-comment"># Electron main process, IPC handlers, FFmpeg</span>
+│   │   └── preload.js       <span class="code-comment"># Context bridge, exposes electronAPI</span>
+│   ├── App.jsx              <span class="code-comment"># React UI (file select, preview, process, done)</span>
+│   ├── index.jsx            <span class="code-comment"># React entry point</span>
+│   └── index.css            <span class="code-comment"># Tailwind CSS directives</span>
+├── docs/                    <span class="code-comment"># GitHub Pages documentation site</span>
+├── .github/
+│   ├── workflows/
+│   │   ├── build.yml        <span class="code-comment"># CI: build + release on all platforms</span>
+│   │   └── deploy-docs.yml  <span class="code-comment"># CI: deploy docs to GitHub Pages</span>
+│   └── ISSUE_TEMPLATE/      <span class="code-comment"># Bug report &amp; feature request templates</span>
+├── vite.config.js           <span class="code-comment"># Vite bundler config</span>
+├── tailwind.config.js       <span class="code-comment"># Tailwind theme</span>
+├── package.json             <span class="code-comment"># Scripts, dependencies, electron-builder config</span>
+└── README.md                <span class="code-comment"># User-facing readme</span></code></pre>
+                </div>
+            </section>
+
+            <!-- IPC API REFERENCE -->
+            <section id="ipc-api">
+                <h2>IPC API Reference</h2>
+                <p>The preload script exposes <code>window.electronAPI</code> with the following methods:</p>
+
+                <div class="comparison-table-wrapper" style="margin-top: 1rem;">
+                    <table class="comparison-table">
+                        <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>openFiles()</code></td><td>string[]</td><td>Opens native file picker, returns selected paths</td></tr>
+                            <tr><td><code>openFolder()</code></td><td>string</td><td>Opens native folder picker</td></tr>
+                            <tr><td><code>saveFile()</code></td><td>string</td><td>Opens save dialog, returns output path</td></tr>
+                            <tr><td><code>getFileInfo(path)</code></td><td>object</td><td>FFprobe metadata (duration, resolution, fps, codec)</td></tr>
+                            <tr><td><code>scanFolder(path)</code></td><td>object[]</td><td>Recursively scan folder, auto-detect file types</td></tr>
+                            <tr><td><code>combine(options)</code></td><td>void</td><td>Start FFmpeg combine operation</td></tr>
+                            <tr><td><code>cancelProcess()</code></td><td>void</td><td>Kill running FFmpeg process</td></tr>
+                            <tr><td><code>openPath(path)</code></td><td>void</td><td>Show file in OS file manager</td></tr>
+                            <tr><td><code>getStore(key)</code></td><td>any</td><td>Read from persistent storage</td></tr>
+                            <tr><td><code>setStore(key, val)</code></td><td>void</td><td>Write to persistent storage</td></tr>
+                            <tr><td><code>getVersion()</code></td><td>string</td><td>App version from package.json</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Event Listeners</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="lang-tag">javascript</span>
+                        <span>Subscribing to FFmpeg events</span>
+                    </div>
+                    <pre><code><span class="code-comment">// Listen for FFmpeg process start</span>
+<span class="code-keyword">window</span>.electronAPI.<span class="code-function">onFFmpegStarted</span>(<span class="code-keyword">()</span> <span class="code-operator">=></span> {
+  console.<span class="code-function">log</span>(<span class="code-string">'Encoding started'</span>);
+});
+
+<span class="code-comment">// Listen for progress updates</span>
+<span class="code-keyword">window</span>.electronAPI.<span class="code-function">onFFmpegProgress</span>((<span class="code-keyword">progress</span>) <span class="code-operator">=></span> {
+  console.<span class="code-function">log</span>(progress.percent, progress.timemark);
+});</code></pre>
+                </div>
+            </section>
+
+            <!-- FFMPEG PIPELINE -->
+            <section id="ffmpeg-pipeline">
+                <h2>FFmpeg Pipeline</h2>
+                <p>FrameFuseVid constructs FFmpeg filter graphs dynamically based on the selected layout:</p>
+
+                <h3>PIP Filter Chain</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="lang-tag">ffmpeg</span>
+                        <span>Generated filter complex for PIP layout</span>
+                    </div>
+                    <pre><code><span class="code-comment"># Scale overlay to percentage of main video</span>
+[1:v]scale=<span class="code-number">iw*0.25</span>:<span class="code-number">-1</span>[pip];
+
+<span class="code-comment"># Position overlay at user-defined X/Y coordinates</span>
+[0:v][pip]overlay=<span class="code-number">x</span>:<span class="code-number">y</span>[out]</code></pre>
+                </div>
+
+                <h3>Side-by-Side Filter Chain</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="lang-tag">ffmpeg</span>
+                        <span>Generated filter complex for side-by-side</span>
+                    </div>
+                    <pre><code><span class="code-comment"># Scale both inputs to half width, same height, with padding</span>
+[0:v]scale=<span class="code-number">960</span>:<span class="code-number">1080</span>:force_original_aspect_ratio=decrease,
+  pad=<span class="code-number">960</span>:<span class="code-number">1080</span>:(ow-iw)/2:(oh-ih)/2[left];
+
+[1:v]scale=<span class="code-number">960</span>:<span class="code-number">1080</span>:force_original_aspect_ratio=decrease,
+  pad=<span class="code-number">960</span>:<span class="code-number">1080</span>:(ow-iw)/2:(oh-ih)/2[right];
+
+<span class="code-comment"># Stack horizontally</span>
+[left][right]hstack[out]</code></pre>
+                </div>
+            </section>
+
+            <!-- BUILDING -->
+            <section id="building">
+                <h2>Building &amp; Packaging</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="lang-tag">bash</span>
+                        <span>Build commands</span>
+                    </div>
+                    <pre><code><span class="code-comment"># Development (Vite dev server + Electron with hot-reload)</span>
+npm run dev
+
+<span class="code-comment"># Build for current platform</span>
+npm run build
+
+<span class="code-comment"># Platform-specific builds</span>
+npm run build:mac     <span class="code-comment"># macOS .dmg</span>
+npm run build:win     <span class="code-comment"># Windows .exe (NSIS installer)</span>
+npm run build:linux   <span class="code-comment"># Linux .AppImage</span></code></pre>
+                </div>
+
+                <p>Builds are output to the <code>dist/</code> directory. The GitHub Actions workflow in <code>.github/workflows/build.yml</code> runs matrix builds on Ubuntu, Windows, and macOS and publishes release artifacts automatically when a version tag is pushed.</p>
+            </section>
+
+            <!-- FILE DETECTION -->
+            <section id="file-detection">
+                <h2>File Detection Patterns</h2>
+                <p>FrameFuseVid identifies Zoom recording types by matching filename patterns:</p>
+
+                <div class="comparison-table-wrapper" style="margin-top: 1rem;">
+                    <table class="comparison-table">
+                        <thead><tr><th>Type</th><th>Filename Patterns</th><th>Example</th></tr></thead>
+                        <tbody>
+                            <tr><td>Screen Share</td><td><code>shared_screen</code>, <code>screenshare</code>, <code>screen_share</code></td><td>zoom_shared_screen_recording.mp4</td></tr>
+                            <tr><td>Speaker View</td><td><code>speaker</code>, <code>active_speaker</code>, <code>_as_</code>, <code>_avo_</code></td><td>zoom_speaker_recording.mp4</td></tr>
+                            <tr><td>Gallery View</td><td><code>gallery</code>, <code>_gv_</code>, <code>_gvo_</code></td><td>zoom_gallery_view.mp4</td></tr>
+                            <tr><td>Audio</td><td><code>audio_only</code>, <code>.m4a</code>, <code>.mp3</code></td><td>audio_only.m4a</td></tr>
+                            <tr><td>Transcript</td><td><code>.vtt</code>, <code>.srt</code></td><td>closed_caption.vtt</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SUPPORTED FORMATS -->
+            <section id="supported-formats">
+                <h2>Supported Formats</h2>
+                <h3>Input</h3>
+                <ul>
+                    <li><strong>Video:</strong> MP4, MOV, M4V, AVI, MKV, WebM</li>
+                    <li><strong>Audio:</strong> M4A, MP3, AAC, WAV</li>
+                    <li><strong>Subtitles:</strong> VTT, SRT</li>
+                </ul>
+                <h3>Output</h3>
+                <ul>
+                    <li>MP4 (H.264 + AAC) &mdash; default</li>
+                    <li>MKV, MOV</li>
+                </ul>
+            </section>
+
+            <!-- FAQ -->
+            <section id="faq">
+                <h2>FAQ</h2>
+
+                <h3>Does FrameFuseVid upload my files anywhere?</h3>
+                <p>No. All processing happens locally on your machine using the bundled FFmpeg binary. There are no network calls, no telemetry, and no cloud dependencies.</p>
+
+                <h3>Can I use this with non-Zoom recordings?</h3>
+                <p>Yes. While auto-detection is optimized for Zoom naming conventions, you can manually add any supported video/audio file and assign its type.</p>
+
+                <h3>Why is the macOS build unsigned?</h3>
+                <p>The current builds are not code-signed with an Apple Developer certificate. On first launch, macOS may block the app. Right-click the .app and select "Open" to bypass Gatekeeper, or allow it in System Settings &gt; Privacy &amp; Security.</p>
+
+                <h3>How do I get the best quality output?</h3>
+                <p>Use the <strong>Slow</strong> quality preset (CRF 20, slow encoder). This produces the smallest file at the highest quality, but encoding takes longer.</p>
+
+                <h3>Can I process multiple recordings at once?</h3>
+                <p>Batch processing is on the roadmap but not yet available in v0.1.0. Currently you process one set of recordings at a time.</p>
+            </section>
+
+            <!-- CONTRIBUTING -->
+            <section id="contributing">
+                <h2>Contributing</h2>
+                <p>We welcome contributions. See the full <a href="https://github.com/mkhalid-s/framefusevid/blob/main/CONTRIBUTING.md">Contributing Guide</a> for details.</p>
+
+                <h3>Development Workflow</h3>
+                <ol>
+                    <li>Fork the repository</li>
+                    <li>Create a feature branch: <code>git checkout -b feat/my-feature</code></li>
+                    <li>Make changes and test with <code>npm run dev</code></li>
+                    <li>Commit with descriptive messages</li>
+                    <li>Push and open a Pull Request against <code>main</code></li>
+                </ol>
+
+                <h3>Code Style</h3>
+                <ul>
+                    <li>ES6+ features, functional React components with hooks</li>
+                    <li>Meaningful variable names; comments for complex logic only</li>
+                    <li>Keep components under ~300 lines when possible</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo" style="margin-bottom: 0.5rem;">
+                    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                        <rect x="2" y="4" width="16" height="12" rx="2" stroke="#818cf8" stroke-width="2"/>
+                        <rect x="10" y="12" width="16" height="12" rx="2" stroke="#06b6d4" stroke-width="2"/>
+                    </svg>
+                    FrameFuseVid
+                </a>
+                <p>Open-source desktop app for merging Zoom cloud recordings into professional videos.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Product</h3>
+                <ul>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#layouts">Layouts</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/releases">Downloads</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="blog/">Blog</a></li>
+                    <li><a href="#quickstart">Quick Start</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid">GitHub</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/issues">Issues</a></li>
+                    <li><a href="https://github.com/mkhalid-s/framefusevid/discussions">Discussions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 FrameFuseVid Contributors. Released under the <a href="https://github.com/mkhalid-s/framefusevid/blob/main/LICENSE">MIT License</a>.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Sidebar active state on scroll
+const sections = document.querySelectorAll('section[id]');
+const sidebarLinks = document.querySelectorAll('.doc-sidebar a');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+        const top = section.offsetTop - 120;
+        if (scrollY >= top) current = section.getAttribute('id');
+    });
+    sidebarLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+});
+</script>
+
+</body>
+</html>
