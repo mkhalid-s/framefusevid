@@ -5,8 +5,8 @@ const fs = require('fs');
 const isDev = require('electron-is-dev');
 const Store = require('electron-store');
 const ffmpeg = require('fluent-ffmpeg');
-const ffmpegPath = require('ffmpeg-static');
-const ffprobePath = require('ffprobe-static').path;
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffprobePath = require('@ffprobe-installer/ffprobe').path;
 
 // Configure ffmpeg paths
 ffmpeg.setFfmpegPath(ffmpegPath);
