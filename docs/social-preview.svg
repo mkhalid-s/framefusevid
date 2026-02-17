@@ -1,0 +1,192 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1280" y2="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <radialGradient id="glowPurple" cx="30%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="rgba(99,102,241,0.2)"/>
+      <stop offset="100%" stop-color="rgba(99,102,241,0)"/>
+    </radialGradient>
+    <radialGradient id="glowCyan" cx="70%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="rgba(6,182,212,0.15)"/>
+      <stop offset="100%" stop-color="rgba(6,182,212,0)"/>
+    </radialGradient>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="700" y1="120" x2="1200" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#1a2332"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <clipPath id="windowClip">
+      <rect x="700" y="120" width="520" height="400" rx="16"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bgGrad)"/>
+  <rect width="1280" height="640" fill="url(#glowPurple)"/>
+  <rect width="1280" height="640" fill="url(#glowCyan)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.03">
+    <line x1="0" y1="80" x2="1280" y2="80" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="160" x2="1280" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="240" x2="1280" y2="240" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="320" x2="1280" y2="320" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="400" x2="1280" y2="400" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="480" x2="1280" y2="480" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="560" x2="1280" y2="560" stroke="white" stroke-width="1"/>
+    <line x1="160" y1="0" x2="160" y2="640" stroke="white" stroke-width="1"/>
+    <line x1="320" y1="0" x2="320" y2="640" stroke="white" stroke-width="1"/>
+    <line x1="480" y1="0" x2="480" y2="640" stroke="white" stroke-width="1"/>
+    <line x1="640" y1="0" x2="640" y2="640" stroke="white" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="640" stroke="white" stroke-width="1"/>
+    <line x1="960" y1="0" x2="960" y2="640" stroke="white" stroke-width="1"/>
+    <line x1="1120" y1="0" x2="1120" y2="640" stroke="white" stroke-width="1"/>
+  </g>
+
+  <!-- LEFT SIDE: Text Content -->
+
+  <!-- Logo -->
+  <g transform="translate(80, 180)">
+    <rect x="0" y="0" width="40" height="30" rx="5" stroke="#818cf8" stroke-width="3" fill="none"/>
+    <rect x="18" y="16" width="40" height="30" rx="5" stroke="#06b6d4" stroke-width="3" fill="none"/>
+    <circle cx="20" cy="15" r="4" fill="#818cf8"/>
+    <circle cx="38" cy="31" r="4" fill="#06b6d4"/>
+  </g>
+
+  <!-- Title -->
+  <text x="80" y="268" fill="#f1f5f9" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="56" font-weight="800" letter-spacing="-2">FrameFuseVid</text>
+
+  <!-- Subtitle line 1 -->
+  <text x="80" y="320" fill="#94a3b8" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="500">Combine Zoom recordings into</text>
+  <!-- Subtitle line 2 with gradient -->
+  <text x="80" y="356" fill="url(#textGrad)" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="700">one professional video</text>
+
+  <!-- Tags -->
+  <g transform="translate(80, 400)">
+    <!-- Privacy tag -->
+    <rect x="0" y="0" width="120" height="36" rx="18" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+    <circle cx="20" cy="18" r="4" fill="#10b981"/>
+    <text x="32" y="23" fill="#10b981" font-family="Inter, sans-serif" font-size="13" font-weight="600">Privacy-First</text>
+
+    <!-- Open Source tag -->
+    <rect x="132" y="0" width="130" height="36" rx="18" fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.3)" stroke-width="1"/>
+    <circle cx="152" cy="18" r="4" fill="#818cf8"/>
+    <text x="164" y="23" fill="#818cf8" font-family="Inter, sans-serif" font-size="13" font-weight="600">Open Source</text>
+
+    <!-- Cross-Platform tag -->
+    <rect x="274" y="0" width="150" height="36" rx="18" fill="rgba(6,182,212,0.12)" stroke="rgba(6,182,212,0.3)" stroke-width="1"/>
+    <circle cx="294" cy="18" r="4" fill="#06b6d4"/>
+    <text x="306" y="23" fill="#06b6d4" font-family="Inter, sans-serif" font-size="13" font-weight="600">Cross-Platform</text>
+  </g>
+
+  <!-- Tech pills -->
+  <g transform="translate(80, 460)">
+    <text x="0" y="14" fill="#475569" font-family="Inter, sans-serif" font-size="13" font-weight="600">Built with</text>
+    <rect x="75" y="0" width="76" height="26" rx="6" fill="rgba(255,255,255,0.04)" stroke="#334155" stroke-width="1"/>
+    <text x="87" y="17" fill="#64748b" font-family="Inter, sans-serif" font-size="12" font-weight="600">Electron</text>
+    <rect x="159" y="0" width="64" height="26" rx="6" fill="rgba(255,255,255,0.04)" stroke="#334155" stroke-width="1"/>
+    <text x="172" y="17" fill="#64748b" font-family="Inter, sans-serif" font-size="12" font-weight="600">React</text>
+    <rect x="231" y="0" width="72" height="26" rx="6" fill="rgba(255,255,255,0.04)" stroke="#334155" stroke-width="1"/>
+    <text x="243" y="17" fill="#64748b" font-family="Inter, sans-serif" font-size="12" font-weight="600">FFmpeg</text>
+    <rect x="311" y="0" width="52" height="26" rx="6" fill="rgba(255,255,255,0.04)" stroke="#334155" stroke-width="1"/>
+    <text x="325" y="17" fill="#64748b" font-family="Inter, sans-serif" font-size="12" font-weight="600">Vite</text>
+  </g>
+
+  <!-- RIGHT SIDE: App Window Mock -->
+  <g filter="url(#shadow)">
+    <rect x="700" y="120" width="520" height="400" rx="16" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
+  </g>
+
+  <!-- Window bar -->
+  <rect x="700" y="120" width="520" height="40" rx="16" fill="#0f172a"/>
+  <rect x="700" y="144" width="520" height="16" fill="#0f172a"/>
+  <line x1="700" y1="160" x2="1220" y2="160" stroke="#334155" stroke-width="1"/>
+  <circle cx="724" cy="140" r="6" fill="#ef4444"/>
+  <circle cx="744" cy="140" r="6" fill="#f59e0b"/>
+  <circle cx="764" cy="140" r="6" fill="#10b981"/>
+
+  <!-- Main preview area -->
+  <rect x="716" y="172" width="340" height="226" rx="8" fill="#0f172a"/>
+
+  <!-- Mock slide content -->
+  <rect x="732" y="192" width="140" height="10" rx="4" fill="#334155"/>
+  <rect x="732" y="210" width="200" height="6" rx="3" fill="#1e293b"/>
+  <rect x="732" y="222" width="180" height="6" rx="3" fill="#1e293b"/>
+  <rect x="732" y="234" width="190" height="6" rx="3" fill="#1e293b"/>
+
+  <!-- Chart bars -->
+  <rect x="732" y="256" width="308" height="126" rx="6" fill="rgba(99,102,241,0.06)"/>
+  <rect x="752" y="340" width="30" height="32" rx="4" fill="#6366f1" opacity="0.6"/>
+  <rect x="792" y="324" width="30" height="48" rx="4" fill="#6366f1" opacity="0.75"/>
+  <rect x="832" y="304" width="30" height="68" rx="4" fill="#6366f1"/>
+  <rect x="872" y="314" width="30" height="58" rx="4" fill="#06b6d4" opacity="0.8"/>
+  <rect x="912" y="290" width="30" height="82" rx="4" fill="#06b6d4"/>
+  <rect x="952" y="278" width="30" height="94" rx="4" fill="#10b981"/>
+  <rect x="992" y="298" width="30" height="74" rx="4" fill="#10b981" opacity="0.8"/>
+
+  <!-- PIP overlay -->
+  <rect x="930" y="182" width="114" height="82" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="2.5"/>
+  <circle cx="987" cy="210" r="14" fill="#334155"/>
+  <rect x="973" y="230" width="28" height="14" rx="7" fill="#334155"/>
+  <!-- PIP label -->
+  <rect x="937" y="188" width="32" height="14" rx="4" fill="#6366f1"/>
+  <text x="945" y="198" fill="white" font-family="Inter, sans-serif" font-size="8" font-weight="700">PIP</text>
+
+  <!-- Layout selector (right panel) -->
+  <rect x="1068" y="172" width="140" height="226" rx="8" fill="#0f172a"/>
+  <text x="1082" y="194" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10" font-weight="700">LAYOUT</text>
+
+  <!-- PIP selected -->
+  <rect x="1078" y="204" width="120" height="44" rx="6" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1.5"/>
+  <rect x="1088" y="214" width="36" height="24" rx="3" fill="#334155"/>
+  <rect x="1108" y="216" width="12" height="8" rx="2" fill="#6366f1"/>
+  <text x="1132" y="230" fill="#f1f5f9" font-family="Inter, sans-serif" font-size="9" font-weight="600">PIP</text>
+
+  <!-- Side by side -->
+  <rect x="1078" y="256" width="120" height="44" rx="6" fill="rgba(255,255,255,0.02)"/>
+  <rect x="1088" y="266" width="16" height="24" rx="3" fill="#334155"/>
+  <rect x="1108" y="266" width="16" height="24" rx="3" fill="#334155"/>
+  <text x="1132" y="282" fill="#64748b" font-family="Inter, sans-serif" font-size="9" font-weight="600">Side-by-Side</text>
+
+  <!-- Sequential -->
+  <rect x="1078" y="308" width="120" height="44" rx="6" fill="rgba(255,255,255,0.02)"/>
+  <rect x="1088" y="318" width="36" height="10" rx="3" fill="#334155"/>
+  <rect x="1088" y="332" width="36" height="10" rx="3" fill="#334155"/>
+  <text x="1132" y="334" fill="#64748b" font-family="Inter, sans-serif" font-size="9" font-weight="600">Sequential</text>
+
+  <!-- Audio -->
+  <rect x="1078" y="360" width="120" height="32" rx="6" fill="rgba(255,255,255,0.02)"/>
+  <text x="1132" y="380" fill="#64748b" font-family="Inter, sans-serif" font-size="9" font-weight="600">Audio Merge</text>
+
+  <!-- Bottom settings bar -->
+  <rect x="716" y="410" width="492" height="56" rx="8" fill="#0f172a"/>
+  <text x="732" y="432" fill="#64748b" font-family="Inter, sans-serif" font-size="9" font-weight="600">Quality</text>
+  <rect x="732" y="440" width="50" height="20" rx="4" fill="rgba(255,255,255,0.03)"/>
+  <text x="746" y="454" fill="#475569" font-family="Inter, sans-serif" font-size="9">Fast</text>
+  <rect x="788" y="440" width="60" height="20" rx="4" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1"/>
+  <text x="800" y="454" fill="#818cf8" font-family="Inter, sans-serif" font-size="9" font-weight="600">Medium</text>
+  <rect x="854" y="440" width="50" height="20" rx="4" fill="rgba(255,255,255,0.03)"/>
+  <text x="868" y="454" fill="#475569" font-family="Inter, sans-serif" font-size="9">Slow</text>
+
+  <!-- Overlay slider -->
+  <text x="940" y="432" fill="#64748b" font-family="Inter, sans-serif" font-size="9" font-weight="600">Overlay</text>
+  <rect x="940" y="446" width="120" height="4" rx="2" fill="#334155"/>
+  <rect x="940" y="446" width="60" height="4" rx="2" fill="#6366f1"/>
+  <circle cx="1000" cy="448" r="6" fill="#6366f1"/>
+  <text x="1070" y="452" fill="#475569" font-family="Inter, sans-serif" font-size="9">25%</text>
+
+  <!-- Combine button -->
+  <rect x="1118" y="430" width="80" height="30" rx="8" fill="#6366f1"/>
+  <text x="1138" y="449" fill="white" font-family="Inter, sans-serif" font-size="11" font-weight="700">Combine</text>
+
+  <!-- Bottom border accent -->
+  <rect x="0" y="636" width="1280" height="4" fill="url(#textGrad)"/>
+</svg>
